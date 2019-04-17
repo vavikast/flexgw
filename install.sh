@@ -19,7 +19,8 @@ push "redirect-gateway def1 bypass-dhcp"
 EOF
 
 
-cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load = yes/' /etc/strongswan/strongswan.d/charon/dhcp.conf >/etc/strongswan/ipsec.secrets
+cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load = yes/' /etc/strongswan/strongswan.d/charon/dhcp.conf 
+>/etc/strongswan/ipsec.secrets
 
 
 
