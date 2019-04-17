@@ -24,7 +24,7 @@ EOF
 echo "/etc/init.d/openvpn  start" >> /etc/rc.local
 echo "sleep 5" >> /etc/rc.local
 echo "/etc/init.d/strongswan  start" >> /etc/rc.local
-
+sed -i "s:data\[7:data\[8:g" /usr/local/flexgw/website/vpn/dial/services.py
 
 ln -s /etc/init.d/initflexgw /etc/rc3.d/S98initflexgw
 /etc/init.d/initflexgw
