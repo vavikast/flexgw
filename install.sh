@@ -10,7 +10,7 @@ cat /etc/sysctl.conf | sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1
 sysctl -p
 ####----rpm----####
 yum -y install strongswan openvpn zip curl wget
-
+wget https://github.com/vavikast/flexgw/raw/master/flexgw-2.5.0-1.el6.x86_64.rpm
 rpm -ivh flexgw-2.5.0-1.el6.x86_64.rpm
 
 cp -f /usr/local/flexgw/rc/strongswan.conf /etc/strongswan/strongswan.conf
