@@ -16,10 +16,14 @@ rpm -ivh flexgw-2.5.0-1.el6.x86_64.rpm
 cp -f /usr/local/flexgw/rc/strongswan.conf /etc/strongswan/strongswan.conf
 cp -f /usr/local/flexgw/rc/openvpn.conf /etc/openvpn/server.conf
 
-cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load = yes/' /etc/strongswan/strongswan.d/charon/dhcp.conf >/etc/strongswan/ipsec.secrets
 cat >> /etc/openvpn/server.conf << EOF
 push "redirect-gateway def1 bypass-dhcp"
 EOF
+
+
+cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load = yes/' /etc/strongswan/strongswan.d/charon/dhcp.conf >/etc/strongswan/ipsec.secrets
+
+
 
 echo "/etc/init.d/openvpn  start" >> /etc/rc.local
 echo "sleep 5" >> /etc/rc.local
