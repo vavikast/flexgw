@@ -5,7 +5,7 @@ sysctl -a | egrep "ipv4.*(accept|send)_redirects" | awk -F "=" '{print $1 "=0"}'
 cat a.txt >>/etc/sysctl.conf
 
 cat /etc/sysctl.conf | sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/' /etc/sysctl.conf
-echo "/net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
 ####----rpm----####
 yum -y install strongswan openvpn zip curl wget
