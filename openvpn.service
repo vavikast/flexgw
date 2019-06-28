@@ -1,0 +1,9 @@
+[Unit]
+Description=openvpn
+After=syslog.target network.target
+[Service]
+Type=simple
+ExecStart=/usr/sbin/openvpn  --cd /etc/openvpn/ --config server.conf
+ExecReload=/bin/kill -HUP $MAINPID
+[Install]
+WantedBy=multi-user.target
