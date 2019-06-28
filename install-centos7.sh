@@ -19,7 +19,7 @@ yum -y install strongswan openvpn zip curl wget
 wget https://github.com/vavikast/flexgw/raw/master/flexgw-2.5.0-1.el6.x86_64.rpm
 rpm -ivh flexgw-2.5.0-1.el6.x86_64.rpm
 
-curl -L https://raw.githubusercontent.com/vavikast/flexgw/master/strongswan.conf -o strongswan.conf
+curl -L https://raw.githubusercontent.com/vavikast/flexgw/master/strongswan.conf -o /etc/strongswan/strongswan.conf
 \cp -f /usr/local/flexgw/rc/openvpn.conf /etc/openvpn/server.conf && echo 'push "redirect-gateway def1 bypass-dhcp"' >>  /etc/openvpn/server.conf
 
 
