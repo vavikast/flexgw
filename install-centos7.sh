@@ -27,19 +27,8 @@ cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load 
 >/etc/strongswan/ipsec.secrets
 sed -i "s:data\[7:data\[8:g" /usr/local/flexgw/website/vpn/dial/services.py
 
-cat  << EOF  >/usr/lib/systemd/system/openvpn.service
-[Unit]
-Description=openvpn
-After=syslog.target network.target
+curl -L  https://raw.githubusercontent.com/vavikast/flexgw/master/openvpn.service -o /usr/lib/systemd/system/
 
-[Service]
-Type=simple
-ExecStart=/usr/sbin/openvpn  --cd /etc/openvpn/ --config server.conf
-ExecReload=/bin/kill -HUP $MAINPID
-
-[Install]
-WantedBy=multi-user.target
-EOF
 
 systemctl daemon-reload
 systemctl enable openvpn
