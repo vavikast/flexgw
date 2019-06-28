@@ -48,3 +48,4 @@ systemctl start openvpn
 systemctl start strongswan 
 
 ln -s /etc/init.d/initflexgw /etc/rc3.d/S98initflexgw
+/etc/init.d/initflexgw
