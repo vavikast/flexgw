@@ -1,6 +1,12 @@
 
 #!/bin/bash
+###--down-loadrepo---###
+curl -L https://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm -o epel-release-latest-7.noarch.rpm
+rpm -ivh epel-release-latest-7.noarch.rpm
+yum makecache fast
+
 ####----sysctl----####
+
 sysctl -a | egrep "ipv4.*(accept|send)_redirects" | awk -F "=" '{print $1 "=0"}' > a.txt
 
 cat a.txt >>/etc/sysctl.conf
@@ -21,27 +27,24 @@ cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load 
 >/etc/strongswan/ipsec.secrets
 sed -i "s:data\[7:data\[8:g" /usr/local/flexgw/website/vpn/dial/services.py
 
-systemctl enable openvpn
-systemctl enable strongswan
-cat  < EOF  >/usr/lib/systemd/system/haproxy.service
+cat  << EOF  >/usr/lib/systemd/system/openvpn.service
 [Unit]
-Description=HAProxy Load Balancer
+Description=openvpn
 After=syslog.target network.target
 
 [Service]
-EnvironmentFile=/etc/sysconfig/haproxy
-ExecStart=/usr/sbin/haproxy-systemd-wrapper -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid $OPTIONS
-ExecReload=/bin/kill -USR2 $MAINPID
-KillMode=mixed
+Type=simple
+ExecStart=/usr/sbin/openvpn  --cd /etc/openvpn/ --config server.conf
+ExecReload=/bin/kill -HUP $MAINPID
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-echo "/etc/init.d/openvpn  start" >> /etc/rc.local
-echo "sleep 5" >> /etc/rc.local
-echo "/etc/init.d/strongswan  start" >> /etc/rc.local
-
+systemctl daemon-reload
+systemctl enable openvpn
+systemctl enable strongswan 
+systemctl start openvpn
+systemctl start strongswan 
 
 ln -s /etc/init.d/initflexgw /etc/rc3.d/S98initflexgw
-/etc/init.d/initflexgw
