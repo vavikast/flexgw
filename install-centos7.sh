@@ -18,18 +18,16 @@ sysctl -p
 yum -y install strongswan openvpn zip curl wget
 wget https://github.com/vavikast/flexgw/raw/master/flexgw-2.5.0-1.el6.x86_64.rpm
 rpm -ivh flexgw-2.5.0-1.el6.x86_64.rpm
-
+sleep 5
 curl -L https://raw.githubusercontent.com/vavikast/flexgw/master/strongswan.conf -o /etc/strongswan/strongswan.conf
-\cp -f /usr/local/flexgw/rc/openvpn.conf /etc/openvpn/server.conf && echo 'push "redirect-gateway def1 bypass-dhcp"' >>  /etc/openvpn/server.conf
-
-
+\cp -f /usr/local/flexgw/rc/openvpn.conf /etc/openvpn/server.conf 
+echo 'push "redirect-gateway def1 bypass-dhcp"' >>  /etc/openvpn/server.conf
 cat /etc/strongswan/strongswan.d/charon/dhcp.conf | sed  -i 's/load = yes/#load = yes/' /etc/strongswan/strongswan.d/charon/dhcp.conf 
 >/etc/strongswan/ipsec.secrets
 sed -i "s:data\[7:data\[8:g" /usr/local/flexgw/website/vpn/dial/services.py
-
 curl -L  https://raw.githubusercontent.com/vavikast/flexgw/master/openvpn.service -o /usr/lib/systemd/system/openvpn.service
-
-
+ 
+sleep 5
 systemctl daemon-reload
 systemctl enable openvpn
 systemctl enable strongswan 
