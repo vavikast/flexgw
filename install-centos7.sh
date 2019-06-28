@@ -1,9 +1,9 @@
 
 #!/bin/bash
 ###--down-loadrepo---###
-curl -L https://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm -o epel-release-latest-7.noarch.rpm
-rpm -ivh epel-release-latest-7.noarch.rpm
-yum makecache fast
+#curl -L https://mirrors.aliyun.com/epel/epel-release-latest-7.noarch.rpm -o epel-release-latest-7.noarch.rpm
+#rpm -ivh epel-release-latest-7.noarch.rpm
+#yum makecache fast
 
 ####----sysctl----####
 
